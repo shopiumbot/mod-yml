@@ -217,7 +217,7 @@ class YML
                     $hashtag = '#' . $v->productAttribute->name . ':' . $v->option->id;
                     //TODO: need test product with variants
                     $data['url'] = Url::to($p->getUrl(), true) . $hashtag;
-                    $data['price'] = Yii::$app->currency->convert(Product::calculatePrices($p, $p->variants, 0), $p->currency_id);
+                    $data['price'] = Yii::$app->currency->convert(Product::calculatePrices($p, $p->variants), $p->currency_id);
                     $data['name'] = Html::encode($name);
                 }
             }
@@ -247,7 +247,7 @@ class YML
 
             $data['images'] = [];
             foreach ($p->images as $img) {
-                /** @var \panix\mod\images\models\Image $img */
+                /** @var \core\modules\images\models\Image $img */
                 $data['images'][] = Url::to($img->getUrl(), true);
             }
             $this->renderOffer($p, $data);
