@@ -1,0 +1,21 @@
+{
+    "name": "shopium/mod-yml",
+    "description": "Module YML",
+    "keywords": ["module", "YML"],
+    "homepage": "https://github.com/shopiumbot/mod-yml",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Semenov Andrew",
+            "email": "dev@pixelion.com.ua",
+            "homepage": "https://pixelion.com.ua"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "shopium\\mod\\yml\\": ""
+        }
+    }
+}
