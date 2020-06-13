@@ -6,6 +6,7 @@ use Yii;
 use yii\base\BootstrapInterface;
 use panix\engine\WebModule;
 use panix\mod\admin\widgets\sidebar\BackendNav;
+use yii\web\GroupUrlRule;
 
 class Module extends WebModule implements BootstrapInterface
 {
@@ -16,9 +17,22 @@ class Module extends WebModule implements BootstrapInterface
     {
         $app->urlManager->addRules(
             [
-                'yml.xml' => 'yml/default/index',
+                'yml.xml' => 'yml/default/process',
             ]
         );
+
+
+        $groupUrlRule = new GroupUrlRule([
+            'prefix' => $this->id,
+            'rules' => [
+                '<controller:[0-9a-zA-Z_\-]+>' => '<controller>/index',
+                '<controller:[0-9a-zA-Z_\-]+>/<action:[0-9a-zA-Z_\-]+>' => '<controller>/<action>',
+                //'<action:\w+>' => 'default/<action>',
+
+            ],
+        ]);
+        $app->getUrlManager()->addRules($groupUrlRule->rules, false);
+
     }
 
     public function getAdminMenu()

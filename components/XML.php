@@ -17,7 +17,7 @@ use yii\helpers\VarDumper;
 /**
  * Exports products catalog to YML format.
  */
-class YML
+class XML
 {
 
     /**
@@ -199,26 +199,28 @@ class YML
         $data = [];
         foreach ($products as $p) {
             /** @var Product $p */
-            if (!count($p->variants)) {
+            if(isset($p->variants)) {
+                if (!count($p->variants)) {
 
-                $data['url'] = Url::to($p->getUrl(), true);
-                $data['price'] = Yii::$app->currency->convert($p->price, $p->currency_id);
-                $data['name'] = Html::encode($p->name);
+                    $data['url'] = Url::to($p->getUrl(), true);
+                    $data['price'] = Yii::$app->currency->convert($p->price, $p->currency_id);
+                    $data['name'] = Html::encode($p->name);
 
-            } else {
+                } else {
 
-                foreach ($p->variants as $v) {
-                    $name = strtr('{product}({attr} {option})', [
-                        '{product}' => $p->name,
-                        '{attr}' => $v->productAttribute->title,
-                        '{option}' => $v->option->value
-                    ]);
+                    foreach ($p->variants as $v) {
+                        $name = strtr('{product}({attr} {option})', [
+                            '{product}' => $p->name,
+                            '{attr}' => $v->productAttribute->title,
+                            '{option}' => $v->option->value
+                        ]);
 
-                    $hashtag = '#' . $v->productAttribute->name . ':' . $v->option->id;
-                    //TODO: need test product with variants
-                    $data['url'] = Url::to($p->getUrl(), true) . $hashtag;
-                    $data['price'] = Yii::$app->currency->convert(Product::calculatePrices($p, $p->variants), $p->currency_id);
-                    $data['name'] = Html::encode($name);
+                        $hashtag = '#' . $v->productAttribute->name . ':' . $v->option->id;
+                        //TODO: need test product with variants
+                        $data['url'] = Url::to($p->getUrl(), true) . $hashtag;
+                        $data['price'] = Yii::$app->currency->convert(Product::calculatePrices($p, $p->variants), $p->currency_id);
+                        $data['name'] = Html::encode($name);
+                    }
                 }
             }
             //Common options
