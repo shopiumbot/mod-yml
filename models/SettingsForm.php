@@ -17,7 +17,6 @@ class SettingsForm extends SettingsModel
     public static function defaultSettings()
     {
         return [
-            'name' => Yii::$app->settings->get('app', 'sitename'),
             'company' => 'Демо кампания',
             'url' => Yii::$app->request->hostInfo,
         ];
@@ -26,8 +25,8 @@ class SettingsForm extends SettingsModel
     public function rules()
     {
         return [
-            [['name', 'company', 'url'], 'string'],
-            [['name', 'company', 'url'], 'required'],
+            [['company', 'url'], 'string'],
+            [['company', 'url'], 'required'],
         ];
     }
 
