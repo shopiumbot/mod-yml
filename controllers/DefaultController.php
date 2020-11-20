@@ -36,11 +36,11 @@ class DefaultController extends AdminController
 
         $this->pageName = Yii::t('yml/default', 'MODULE_NAME');
 
-        $this->breadcrumbs[] = [
+        $this->view->params['breadcrumbs'][] = [
             'label' => Yii::t('shop/default', 'MODULE_NAME'),
             'url' => ['/admin/shop']
         ];
-        $this->breadcrumbs[] = $this->pageName;
+        $this->view->params['breadcrumbs'][] = $this->pageName;
         $model = new SettingsForm;
 
         if ($model->load(Yii::$app->request->post())) {
